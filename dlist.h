@@ -49,18 +49,24 @@ class DList {
             if (!head) {
                 head = tail = newNode;
             } else {
-                newNode->prev = head;
-                head->next = newNode;
+                newNode->prev = tail;
+                tail->next = newNode;
                 tail = newNode;
             }
         }
              
         void pop_front() {
-            
+    		Node<T>* Tmp = head;
+        	head = head->next;
+    		delete Tmp;
+    		head->prev = nullptr;
         }
              
         void pop_back() {
-            // TODO
+            Node<T>* tmp = tail;
+            tail = tail->prev;
+            delete tmp;
+            tail->next = nullptr;
         }
              
         iterator begin() {

@@ -8,8 +8,14 @@ class DListIterator : public Iterator<T> {
     public: 
         DListIterator() : Iterator<T>() {};
         DListIterator(Node<T> *current) : Iterator<T>(current) {};
-        DListIterator<T> operator++();
-        DListIterator<T> operator--();
+        DListIterator<T> operator++() {
+            this->current = this->current->next;
+            return *this;
+        };
+        DListIterator<T> operator--() {
+            this->current = this->current->prev;
+            return *this;
+        };
 };
 
 template <typename Tr>
@@ -28,15 +34,29 @@ class DList {
         };
 
         void push_front(T data) {
-            // TODO
+            Node<T>* newNode = new Node<T>(data);
+            if (!head) {
+                head = tail = newNode;
+            } else {
+                newNode->next = head;
+                head->prev = newNode;
+                head = newNode;
+            }
         }
 
         void push_back(T data) {
-            // TODO
+            Node<T>* newNode = new Node<T>(data);
+            if (!head) {
+                head = tail = newNode;
+            } else {
+                newNode->prev = head;
+                head->next = newNode;
+                tail = newNode;
+            }
         }
              
         void pop_front() {
-            // TODO
+            
         }
              
         void pop_back() {
@@ -44,11 +64,11 @@ class DList {
         }
              
         iterator begin() {
-            // TODO
+            return iterator(head);
         }
              
         iterator end() {
-            // TODO
+            return iterator(nullptr);
         }
              
         ~DList() {

@@ -38,7 +38,7 @@ class SList {
                     pointer = &((*pointer)->next);
                 }
             }
-            return false;return true;
+            return false;
         }
              
         bool insert(T data) {

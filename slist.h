@@ -2,7 +2,7 @@
 #define SLIST_H
 
 #include "iterator.h"
-
+using namespace std;
 template <class T>
 class SListIterator : public Iterator<T> {     
     public: 
@@ -31,22 +31,42 @@ class SList {
         };
 
         bool find(T search, Node<T> **&pointer) {
-            pointer = head;
-            while (*pointer != nullptr) {
-                if (*pointer->data == search) return true;
-                *pointer = *pointer->next;
+            while(*pointer) {
+                if ( cmp(search , (*pointer)->data )) {
+                    return search == (*pointer)->data;
+                } else {
+                    pointer = &((*pointer)->next);
+                }
             }
-            return false;
+            return false;return true;
         }
              
         bool insert(T data) {
-            if (!find(data, head)) {
-                
+            Node<T>* newNode = new Node<T>(data);
+            if(head) {
+                Node<T>** pointer = &head;
+                if (!find(data, pointer)) {
+                    newNode->next = *pointer;
+                    *pointer = newNode;
+                    return true;
+                }
+                return false;
+            } else {
+                head = newNode;
+                return true;
             }
         }
              
         bool remove(T item) {
-            // TODO
+            Node<T>** pointer = &head;
+            if ( find(item, pointer) ) {
+                cout << *pointer << endl;
+                Node<T>* tmp = *pointer;
+                *pointer = (*pointer)->next;
+                delete tmp;
+                return true;
+            }
+            return false;
         }  
              
         iterator begin() {

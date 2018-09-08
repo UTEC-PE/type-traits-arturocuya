@@ -50,7 +50,9 @@ void testSimpleLinkedList() {
     SList<Float>::iterator ite2;
     
     for (int i = 0; i < 5; i++) {
+        cout << "to int: " << 2 * i + 1 << endl;
         integers.insert(2 * i + 1);
+        cout << "to float: " << 20.f / (i + 1.f) + 2.f << endl;
         floats.insert(20.f / (i + 1.f) + 2.f);
     }
 
